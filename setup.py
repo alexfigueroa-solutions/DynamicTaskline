@@ -34,7 +34,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'dynamictaskline=dynamictaskline.cli:main',
+            'dtl=run:main',
         ],
     },
     include_package_data=True,
