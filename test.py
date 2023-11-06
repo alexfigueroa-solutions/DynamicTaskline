@@ -12,7 +12,8 @@ class Task:
         self.is_composite = is_composite
 
     def add_child(self, task):
-        self.children.append(task)
+        if self.is_composite:
+            self.children.append(task)
 
     def is_complete(self):
         if self.is_composite:
@@ -46,6 +47,7 @@ leaf_task1 = Task("LeafTask1")
 leaf_task2 = Task("LeafTask2")
 leaf_task3 = Task("LeafTask3")
 
+# Set up the task hierarchy
 composite_task.add_child(leaf_task1)
 composite_task.add_child(leaf_task2)
 composite_task.add_child(leaf_task3)
@@ -53,33 +55,24 @@ root_task.add_child(composite_task)
 
 console = Console()
 
-def simulate_task_progress(task, increment=10):
-    if not task.is_complete():
-        task.progress += increment
-        if task.progress >= 100:
-            task.complete_task()
+def simulate_task_progress(task, live):
+    while task.progress < 100:
+        task.progress += 20  # Increment by 20% for demonstration
         task.update_progress()
-
-console = Console()
-
-with Live(console=console, refresh_per_second=10) as live:
-    while not root_task.is_complete():
+        # Rebuild the tree with updated progress
         tree = Tree(":gear: Running Tasks")
         build_tree_with_progress(root_task, tree)
         live.update(tree)
+        time.sleep(1)  # Simulate time passing for the task progress
+    task.complete_task()
 
-        # Update progress for each task one by one
-        for task in composite_task.children:
-            if not task.is_complete():
-                simulate_task_progress(task)
-                break  # Break after updating one task to update the display
-
-        # Update progress for composite and root tasks after changes in children
+with Live(console=console, refresh_per_second=10) as live:
+    for task in composite_task.children:
+        simulate_task_progress(task, live)
         composite_task.update_progress()
         root_task.update_progress()
 
-        time.sleep(1)  # Sleep to simulate time for the task progress
-
-final_tree = Tree(":checkered_flag: All tasks completed")
-build_tree_with_progress(root_task, final_tree)
-console.print(final_tree)
+    # Final update to ensure the last task's completion is displayed
+    tree = Tree(":gear: Running Tasks")
+    build_tree_with_progress(root_task, tree)
+    live.update(tree)
