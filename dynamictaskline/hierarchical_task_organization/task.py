@@ -1,3 +1,6 @@
+import sys
+import time
+
 class Task:
     def __init__(self, name, parent=None):
         self.name = name
@@ -9,22 +12,20 @@ class Task:
         self.children.append(child_task)
 
     def execute(self):
-        self.start_task()
+        self.update_status("Running")
         for child in self.children:
             child.execute()
-        self.complete_task()
+        self.update_status("Completed")
 
-    def start_task(self):
-        self.status = "Running"
+    def update_status(self, status):
+        self.status = status
         self.display_status()
-
-    def complete_task(self):
-        self.status = "Completed"
-        self.display_status()
+        time.sleep(1)  # Simulate task duration
 
     def display_status(self):
         indent = '  ' * self.get_level()
-        print(f"{indent}{self.status}: {self.name}")
+        sys.stdout.write(f"\r{indent}{self.status}: {self.name}")
+        sys.stdout.flush()
 
     def get_level(self):
         level = 0
@@ -38,9 +39,5 @@ class Task:
         try:
             self.execute()
         except Exception as e:
-            self.handle_error(e)
-
-    def handle_error(self, error):
-        self.status = "Error"
-        self.display_status()
-        print(f"{self.get_level() * '  '}Error Details: {error}")
+            self.update_status("Error")
+            print(f"\n{self.get_level() * '  '}Error Details: {e}")

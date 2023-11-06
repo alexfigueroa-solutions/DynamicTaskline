@@ -14,3 +14,4 @@ class TaskManager:
 
     def run(self):
         self.root_task.run()
+        print("\nAll tasks executed.")

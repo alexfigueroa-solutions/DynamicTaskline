@@ -32,7 +32,6 @@ def main():
 
     # Run the task manager
     manager.run()
-
     # Provide feedback
     feedback_controller.provide_feedback("All tasks executed.")
 
