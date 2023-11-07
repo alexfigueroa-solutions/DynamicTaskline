@@ -1,6 +1,7 @@
 from rich.console import Console
 from rich.tree import Tree
 from rich.live import Live
+from rich.layout import Layout
 import time
 import subprocess
 
@@ -49,7 +50,6 @@ class Task:
                 self.error = str(e)
                 self.progress = 100  # Set to 100% to indicate the task has ended (with an error).
 
-# This function now checks if the tree branch exists before creating it.
 def build_tree_with_progress(node, parent_tree):
     status = "✅" if node.is_complete() else "🕒"
     if node.error:
@@ -61,12 +61,11 @@ def build_tree_with_progress(node, parent_tree):
     for child in node.children:
         build_tree_with_progress(child, node.tree_branch)
 
-# Define some real functions to do work
 def do_work(task, live):
     for i in range(5):
         task.progress += 20
         task.update_progress()
-        update_live_display(live)
+        update_live_display(live, layout, root_task)
         time.sleep(1)  # Simulate work taking time
         task.tree_branch.add(f"{task.name} is working...")  # Add progress to the task's tree branch
 
@@ -80,15 +79,16 @@ def run_os_command(task, live):
     except subprocess.CalledProcessError as e:
         task.error = str(e)
     task.progress = 100
-    update_live_display(live)
+    update_live_display(live, layout, root_task)
 
-def update_live_display(live):
+def update_live_display(live, layout, root_task):
     if not root_task.tree_branch:
         tree = Tree(":gear: Running Tasks")
         build_tree_with_progress(root_task, tree)
-        live.update(tree)
+        layout["body"].update(tree)
     else:
         build_tree_with_progress(root_task, root_task.tree_branch)
+        layout["body"].update(root_task.tree_branch)
 
 # Create tasks with actual functions to run
 root_task = Task("Root", is_composite=True)
@@ -104,23 +104,36 @@ composite_task.add_child(leaf_task3)
 root_task.add_child(composite_task)
 
 console = Console()
+layout = Layout()
 
-def simulate_task_progress(task, live):
+# Define the layout structure
+layout.split(
+    Layout(name="body", ratio=10),
+    Layout(name="footer", ratio=1),
+)
+
+# Set an initial message in the footer
+layout["footer"].update("Tasks are starting...")
+
+def simulate_task_progress(task, live, layout):
     if task.is_composite:
         for child in task.children:
-            simulate_task_progress(child, live)
+            simulate_task_progress(child, live, layout)
     else:
         task.run_function(live)
 
     task.update_progress()
-    update_live_display(live)
+    update_live_display(live, layout, root_task)
 
-with Live(console=console, refresh_per_second=10) as live:
-    simulate_task_progress(root_task, live)  # Start with the root task
+with Live(layout, console=console, refresh_per_second=10) as live:
+    simulate_task_progress(root_task, live, layout)  # Start with the root task
 
     while not root_task.is_complete():
-        update_live_display(live)
+        update_live_display(live, layout, root_task)
         time.sleep(0.5)  # A short sleep to prevent a busy-wait loop
 
     # Final update to ensure the last task's completion is displayed
-    update_live_display(live)
+    update_live_display(live, layout, root_task)
+
+    # Update the footer with a completion message
+    layout["footer"].update("All tasks completed!")
