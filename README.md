@@ -1,4 +1,4 @@
-# DynamicTaskLine
+# DynamicTaskLine (Pre-Release)
 
 **DynamicTaskLine** is a Python library designed to elevate command-line interfaces (CLI) into dynamic, structured, and responsive environments. It is tailored for developers looking to streamline complex workflows by organizing tasks in a hierarchical manner, providing real-time feedback, and presenting errors and logs contextually within each task level.
 
