@@ -14,25 +14,6 @@ Traditionally, CLIs offer limited feedback during execution, making it difficult
 - **Interactive Configuration**: Adapt and configure tasks in real-time based on user input, making for a flexible and responsive CLI experience.
 - **Nested CLI Outputs**: Each task or subtask maintains its output within its designated context, preserving a clean and structured interface.
 
-## Getting Started
-
-To install DynamicTaskLine and improve your CLI tools, run:
-
-```sh
-pip install dynamictaskline
-```
-
-### Prerequisites
-
-Make sure you have Python 3.7 or later installed.
-
-### Installing
-
-You can easily install **DynamicTaskLine** using pip:
-
-```sh
-pip install dynamictaskline
-```
 
 ## Usage
 
