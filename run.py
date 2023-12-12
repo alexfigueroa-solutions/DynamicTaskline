@@ -19,19 +19,8 @@ def main():
     feedback_controller = FeedbackController(status_renderer)
 
     manager = TaskManager()
-
-    # Create tasks
-    composite_task = Task("CompositeTask")
-    leaf_task1 = Task("LeafTask1", composite_task)
-    leaf_task2 = Task("LeafTask2", composite_task)
-
-    # Add tasks to the manager
-    manager.add_task(composite_task)
-    manager.add_task(leaf_task1, composite_task)
-    manager.add_task(leaf_task2, composite_task)
-
-    # Run the task manager
-    manager.run()
+    tasks = ["Main Task", "Sub Task 1", "Sub Task 2"]
+    manager.run(tasks)
     # Provide feedback
     feedback_controller.provide_feedback("All tasks executed.")
 

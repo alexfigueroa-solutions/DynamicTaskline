@@ -13,6 +13,8 @@ Traditionally, CLIs offer limited feedback during execution, making it difficult
 - **Contextual Information and Errors**: Keep all related information and errors neatly nested within each task, ensuring that logs are easy to follow and diagnose.
 - **Interactive Configuration**: Adapt and configure tasks in real-time based on user input, making for a flexible and responsive CLI experience.
 - **Nested CLI Outputs**: Each task or subtask maintains its output within its designated context, preserving a clean and structured interface.
+- **Dual-Panel UI Layout**: Top panel for tasks and outputs; bottom panel for global status updates and user input.
+
 
 ## Getting Started
 

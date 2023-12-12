@@ -7,6 +7,7 @@ class Task:
         self.parent = parent
         self.children = []
         self.status = "Pending"
+        self.indentation = '  ' * self.get_level()
 
     def add_child(self, child_task):
         self.children.append(child_task)
@@ -16,15 +17,25 @@ class Task:
         for child in self.children:
             child.execute()
         self.update_status("Completed")
+        if self.parent:
+            self.parent.collapse_children()
 
     def update_status(self, status):
         self.status = status
         self.display_status()
-        time.sleep(1)  # Simulate task duration
+        time.sleep(0.5)  # Simulate task duration
 
     def display_status(self):
-        indent = '  ' * self.get_level()
-        sys.stdout.write(f"\r{indent}{self.status}: {self.name}")
+        sys.stdout.write(f"\r{self.indentation}{self.status}: {self.name}\n")
+        sys.stdout.flush()
+
+    def collapse_children(self):
+        if all(child.status == "Completed" for child in self.children):
+            self.move_cursor_up(len(self.children))
+            self.display_status()
+
+    def move_cursor_up(self, lines):
+        sys.stdout.write(f"\033[{lines}A")
         sys.stdout.flush()
 
     def get_level(self):
@@ -40,4 +51,4 @@ class Task:
             self.execute()
         except Exception as e:
             self.update_status("Error")
-            print(f"\n{self.get_level() * '  '}Error Details: {e}")
+            print(f"{self.indentation}Error Details: {e}")
