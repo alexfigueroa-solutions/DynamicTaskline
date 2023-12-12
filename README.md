@@ -1,10 +1,10 @@
-# DynamicTaskLine
+# Taskor
 
-**DynamicTaskLine** is a Python library designed to elevate command-line interfaces (CLI) into dynamic, structured, and responsive environments. It is tailored for developers looking to streamline complex workflows by organizing tasks in a hierarchical manner, providing real-time feedback, and presenting errors and logs contextually within each task level.
+**Taskor** is a Python library designed to elevate command-line interfaces (CLI) into dynamic, structured, and responsive environments. It is tailored for developers looking to streamline complex workflows by organizing tasks in a hierarchical manner, providing real-time feedback, and presenting errors and logs contextually within each task level.
 
 ## Description
 
-Traditionally, CLIs offer limited feedback during execution, making it difficult to manage complex tasks. **DynamicTaskLine** introduces a hierarchical, real-time task management system, transforming the CLI into an interactive workspace akin to a textual user interface (TUI). This approach not only enhances user experience but also provides a clear, searchable, and nested display of tasks, subtasks, informational messages, and errors.
+Traditionally, CLIs offer limited feedback during execution, making it difficult to manage complex tasks. **Taskor** introduces a hierarchical, real-time task management system, transforming the CLI into an interactive workspace akin to a textual user interface (TUI). This approach not only enhances user experience but also provides a clear, searchable, and nested display of tasks, subtasks, informational messages, and errors.
 
 ## Features
 
@@ -18,10 +18,10 @@ Traditionally, CLIs offer limited feedback during execution, making it difficult
 
 ## Getting Started
 
-To install DynamicTaskLine and improve your CLI tools, run:
+To install Taskor and improve your CLI tools, run:
 
 ```sh
-pip install dynamictaskline
+pip install Taskor
 ```
 
 ### Prerequisites
@@ -30,18 +30,18 @@ Make sure you have Python 3.7 or later installed.
 
 ### Installing
 
-You can easily install **DynamicTaskLine** using pip:
+You can easily install **Taskor** using pip:
 
 ```sh
-pip install dynamictaskline
+pip install Taskor
 ```
 
 ## Usage
 
-Here's a basic example to demonstrate a nested task structure with DynamicTaskLine:
+Here's a basic example to demonstrate a nested task structure with Taskor:
 
 ```python
-from dynamictaskline import TaskManager, Task
+from Taskor import TaskManager, Task
 
 # Initialize the TaskManager
 manager = TaskManager()
@@ -64,11 +64,11 @@ manager.run()
 
 ## Documentation
 
-For more details on the full capabilities of **DynamicTaskLine**, please refer to the [Documentation](#). It provides comprehensive guidelines on implementing the advanced features of DynamicTaskLine.
+For more details on the full capabilities of **Taskor**, please refer to the [Documentation](#). It provides comprehensive guidelines on implementing the advanced features of Taskor.
 
 ## Contributing
 
-We welcome contributions to make **DynamicTaskLine** even better! Here's how you can help:
+We welcome contributions to make **Taskor** even better! Here's how you can help:
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/YourAmazingFeature`)
